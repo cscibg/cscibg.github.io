@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+  <title>Module 4</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+    @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+    body {
+      font-family: 'Droid Serif';
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Yanone Kaffeesatz';
+      font-weight: normal;
+    }
+
+    .remark-code,
+    .remark-inline-code {
+      font-family: 'Ubuntu Mono';
+    }
+    code {
+      font-family: 'Ubuntu Mono';
+    }
+  </style>
+</head>
+
+<body>
+  <textarea id="source">
+
+class: center, middle
+
+# Module 4 JavaScript Introduction
+
+???
+
+Notes for the _first_ slide!
+
+---
+
+# Agenda
+
+<div>
+
+<p>1. CSS Basics</p>
+<p>2. Properties</p>
+<p>3. CSS Box Model</p>
+<p>4. CSS Units</p>
+<p>5. CSS Selectors</p>
+<p>6. Colours in CSS</p>
+<p>7. Browsers</p>
+<p>8. Development Tools</p>
+<p>9. HTML + CSS</p>
+</div>
+
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Introduction</h2>
+<p><dfn>JavaScript</dfn> is a programming language, like C, Java, Python, etc.</p>
+<p>All programming language are basically ways to describe some behaviour to the computer: calculations it should do, things that should happen on screen, etc. Different programming languages have strengths and weaknesses.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Introduction</h2>
+<p>The big strength of JavaScript is that it's built into the web browser already and can operate inside a web page.</p>
+<p>Some kinds of <q>behaviour</q> we will be able to have in a web page: respond to an event from the user (clicking, typing, etc); modify the current page (add/remove/change content).</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Introduction</h2>
+<p>Contrasting with HTML and CSS: both of these are <q>languages</q>, but not <q>programming languages</q> because their result isn't a program.</p>
+<aside>[i.e. don't list HTML or CSS as <q>programming languages</q> on&nbsp;your&nbsp;resumé.]</aside>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+<h2>JavaScript Basics</h2>
+<p>Our JavaScript code will run within a web page. Like with CSS, we start with an HTML page and add in some JavaScript.</p>
+<p>The JavaScript code will go in a separate (text) file named <code class="file"><var>something</var>.js</code>.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Basics</h2>
+<p>To attach a JavaScript file to HTML, add a <span class="hljs-tag">&lt;</span>script&gt; element in the <span class="hljs-tag">&lt;</span>head&gt; like this:</p>
+<pre class="highlight lang-html hljs xml" data-lang=".html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"first-code.js"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">/script</span>&gt;</span></pre>
+<p>We will always close the <span class="hljs-tag">&lt;</span>script&gt; tag immediately: no contents.</p>
+
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Basics</h2>
+<p>Then in a file <code class="file">first-code.js</code> we can write JavaScript code. For now, we can try this:</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">alert(<span class="hljs-string">'Hello world!'</span>)</pre>
+<p>If we reload the HTML page, we should see the alert box pop up.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Basics</h2>
+<pre class="highlight lang-js continuation hljs javascript" data-lang=".js">alert(<span class="hljs-string">'Hello world!'</span>)</pre>
+<p>When the HTML page is loaded, the JavaScript code is executed.</p>
+<p>In this code, <code class="js">alert</code> is a <dfn>function</dfn> that is built into the language.</p>
+<p>The stuff in the <code class="js">(…)</code> are the function's <dfn>arguments</dfn> (could be none for some functions).</p>
+
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Basics</h2>
+<pre class="highlight lang-js continuation hljs javascript" data-lang=".js">alert(<span class="hljs-string">'Hello world!'</span>)</pre>
+<p>This argument (<code class="js">'Hello world!'</code>) is a <dfn>string</dfn>: a sequence of characters in quotes.</p>
+<p>Calling it like this will run it, and it does whatever it does.</p>
+<p>This line of code is a <dfn>statement</dfn>: one instruction in the language</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Basics</h2>
+<p>That code runs when the page loads: that isn't usually what we want. We want to respond to something the user did. In order to do that, we must…</p>
+<ul>
+<li>wrap up the logic so we can run the right piece when we want it,</li>
+<li>attach that logic to an <q>event</q>.</li>
+</ul>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Basics</h2>
+<p>In our JavaScript file, we can turn that line of code into a function named <code class="js">say_hello</code>:</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">say_hello = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    alert(<span class="hljs-string">'Hello world!'</span>)
+}</pre>
+<p>This code doesn't do anything when the page loads, except define <code class="js">say_hello</code>, which we can use later.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>JavaScript Basics</h2>
+<p>Then we can modify an element to attach an event on that element, so the function is called when the user does something:</p>
+<pre class="highlight lang-html hljs xml" data-lang=".html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"say_hello()"</span>&gt;</span>This is a paragraph.<span class="hljs-tag">&lt;<span class="hljs-name">/p</span>&gt;</span></pre>
+<p>Result: clicking on that paragraph calls our <code class="js">say_hello</code> function, which itself calls alert. We will see another (more flexible) way to hook up events later.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+<h2>Variables</h2>
+<p>The previous JavaScript code example started:</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">say_hello = …</pre>
+<p>A statement like this creates a <dfn>variable</dfn> named <code class="js">say_hello</code>. It is a <dfn>variable assignment statement</dfn>.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Variables</h2>
+<p>A variable in a program is a way to store some information.</p>
+<p>In that code, what we're storing is a new function. It will be put in the computer's memory and can be referred to by name later.</p>
+<p>The goal: store stuff that we need to work with later.</p>
+
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Variables</h2>
+<p>Variables can also store other kinds of information, like numbers.</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">another_example = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    count = <span class="hljs-number">54</span>;
+    count = count + <span class="hljs-number">1</span>;
+    alert(count);
+}</pre>
+<p>This function will pop up and show the number 55. It sets <code class="js">count</code> to 54; changes it to 54+1 = 55, and then calls <code class="js">alert</code> with that value.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Variables</h2>
+<pre class="highlight lang-js continuation hljs javascript" data-lang=".js">another_example = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    count = <span class="hljs-number">54</span>;
+    count = count + <span class="hljs-number">1</span>;
+    alert(count);
+}</pre>
+<p>Things to note…</p>
+<p>Variables can be assigned many times, and the value being stored changes (<em>varies</em>).</p>
+<p>Variables can store different kinds of information. Here, <code class="js">another_example</code> is holding a function, <code class="js">count</code> contains a number.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Variables</h2>
+<pre class="highlight lang-js continuation hljs javascript" data-lang=".js">another_example = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    count = <span class="hljs-number">54</span>;
+    count = count + <span class="hljs-number">1</span>;
+    alert(count);
+}</pre>
+<p>Calling the variable by name uses its value. In the second statement, <code class="js">count + 1</code> uses <code class="js">count</code>'s current value (54) where it is mentioned, so the calculation evaluates to 55.</p>
+<p>Giving the variable to <code class="js">alert()</code> uses the value at that point in the execution (55).</p>
+
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Variables</h2>
+<p>When a variable is holding a function, we can call it by putting parentheses after its name, like:</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">another_example()</pre>
+<p>Or, using a built-in function,</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">alert(<span class="hljs-string">'Hello world!'</span>)</pre>
+<p>(Call/​run/​execute all mean <q>do the stuff in the function</q>.)</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+<h2>Types</h2>
+<p>There are several different kinds of information that can be stored in JavaScript variables, or elsewhere in calculations.</p>
+<p>Each is a <dfn>type</dfn>.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p>Numbers are numeric values that can be used in calculations. Each of these statements puts a number in a variable:</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">count = <span class="hljs-number">17</span>
+higher_count = count + <span class="hljs-number">1</span>
+double_count = count * <span class="hljs-number">2</span>
+length = <span class="hljs-number">7.32</span></pre>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p>Numbers can be integers or real numbers (technically <a href="https://www.youtube.com/watch?v=PZRI1IfStY0">floating point numbers</a>, but close enough).</p>
+<p>Basic arithmetic operations (<code class="js">+</code>, <code class="js">-</code>, <code class="js">*</code>, <code class="js">/</code>) work as you probably expect.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p><dfn>Strings</dfn> are sequences of characters representing text. e.g. in the function call <code class="js">alert('Hello&nbsp;world!')</code>, the argument (<code class="js">'Hello&nbsp;world!'</code>) is a string.</p>
+<p>Strings can be stored in variables:</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">message = <span class="hljs-string">'Hello world!'</span>
+course = <span class="hljs-string">"CSCI 165"</span></pre>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p>We can use a variable anywhere we need its value, like</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">message = <span class="hljs-string">'Hello world!'</span>
+alert(message)</pre>
+<p>A literal string can be wrapped in either single or double quotes in JavaScript. Strings can be joined with <code class="js">+</code> :</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">message = <span class="hljs-string">'Hello'</span> + <span class="hljs-string">' '</span> + <span class="hljs-string">'world!'</span>
+alert(message)</pre>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p>Functions, like our <code class="js">say_hello</code> and <code class="js">another_example</code>, are stored in variables that hold the function definition.</p>
+<p>We have seen the <code class="js">alert</code> function, which is pre-defined as part of the language.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p>In JavaScript, <dfn>objects</dfn> are a container for other things: numbers, strings, functions, and other objects.</p>
+<p>We will get many kinds of objects given to us by the language. We will be using them a lot, but not directly creating them ourselves.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p>The <code class="js">.</code> operator is used to get something out of an object. If we have an object <code class="js">a</code> that contains <code class="js">b</code>, we can get it by asking for <code class="js">a.b</code> .</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Types</h2>
+<p>There are a few more types of values in JavaScript, but those will do for now.</p>
+<p>What you can do with values (either in a variable or a literal value) depends on its type.</p>
+<p>e.g. doing <code class="js">a - b</code> only really makes sense for numbers, and the <code class="js">alert</code> built-in function expects its argument to be a string.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+<h2>Functions</h2>
+<p>We defined a function named <code class="js">say_hello</code> already:</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">say_hello = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    alert(<span class="hljs-string">'Hello world!'</span>)
+}</pre>
+<p>What this code does:</p>
+<ul>
+<li>Create a variable named <code class="js">say_hello</code>: we're storing functions in variables just like any other type of value.</li>
+<li>Put a function (that takes no arguments) in it.</li><br/>
+⋮
+</ul>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Functions</h2>
+<pre class="highlight lang-js continuation hljs javascript" data-lang=".js">say_hello = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    alert(<span class="hljs-string">'Hello world!'</span>)
+}</pre>
+<ul>
+⋮<br/>
+<li>The “body” of the function (in the <code class="js">{…}</code>, what happens when we call it) contains one statment which is a call to <code class="js">alert</code>.</li>
+</ul>
+<p>As we go on, the body of the functions will expand, and we will learn how to write functions that take arguments.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+<h2>Programming Libraries</h2>
+<p>As we start programming, we'll find some tasks that everybody has to solve with JavaScript and web pages. (The same thing happens with any language and problem domain.)</p>
+<p>We shouldn't have every programmer solve all of the same common problems, but there is a limit to the number functions built into the language to help us.</p>
+
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Programming Libraries</h2>
+<p>The solution: identify the common problems, solve them once, and package up the code for others to use.</p>
+<p>People have done this. The result is <dfn>code libraries</dfn>. These are generally collections of functions (any other stuff) that are useful for particular problems.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Programming Libraries</h2>
+<p>For any library, we <em>could</em> have written those functions ourselves, but probably didn't want to (or didn't yet know how).</p>
+<p>Modern programming is full of libraries: many problems that have been solved so you don't have to. The tradeoff is figuring out how to use them.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Programming Libraries</h2>
+<p>We saw a similar concept in CSS with the reset stylesheet, and Normalize.css: these took some common CSS problems and solved them once in a way others could use.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Fixing Problems</h2>
+<p>Step 1: Do you know what you want to do?</p>
+<p>If you don't know what you're trying to do, there's no hope: stop writing code and think. What steps do you need the computer to take to get the results you want?</p>
+<p>What will make those things happen? What are you going to do with the results?</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Fixing Problems</h2>
+<p>Step 2: Figure out what's happening. If you have a plan, you have some hope of getting your code to work.</p>
+<p>Have a look at your code and see where it's diverging from expectations.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Fixing Problems</h2>
+<p>The simplest way to see what's happening is to do something visible.</p>
+<p>You can insert an <code class="js">alert()</code> to see what's in a variable, or even if/when a function is running.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Fixing Problems</h2>
+<p>e.g. Is your click event even calling the right function? Put an <code class="js">alert("I'm here")</code> at the start of that function so you can tell.</p>
+<p>e.g. What is actually in the variable <code class="js">old_content</code>? Add a <code class="js">alert(old_content)</code> so you can see it (at that particular place in the code).</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Fixing Problems</h2>
+<p>Even nicer, you can call the <code class="js">console.log</code> function.</p>
+<p>It works a little like <code class="js">alert</code>, but sends the message to the debugging console. Bring up the dev tools (<kbd style="border-style:solid;font-size:large;">F12</kbd> or <kbd style="border-style:solid;font-size:large;">control-shift-I</kbd> or <kbd style="border-style:solid;font-size:large;">⌥⌘I</kbd>) and select the <q>Console</q> tab.</p>
+<p>It's less intrusive, so you can use it many times without having to click through each popup.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Fixing Problems</h2>
+<p>Bonus: if you <code class="js">console.log</code> a jQuery object, you can explore the elements it found. Are they the ones you expected to find?</p>
+<pre class="highlight lang-js hljs javascript" data-lang=".js">paragraphs = jQuery(<span class="hljs-string">'p'</span>)
+<span class="hljs-built_in">console</span>.log(paragraphs)
+paragraphs.attr(<span class="hljs-string">'class'</span>, <span class="hljs-string">'testing-class'</span>)</pre>
+<p>We can check the developer's console to see what was selected (and stored in <code class="js">paragraphs</code>) and try to diagnose what's happening with the surrounding code.</p>
+
+</div>
+
+---
+
+<div style="font-size:x-large;">
+
+<h2>Fixing Problems</h2>
+<p>Better still, the developer tools <q>Debugging</q> tab. Here, you can inspect the JavaScript code, see what events are connected to something, step through JavaScript code, etc.</p>
+<p>It's a powerful tool, but probably more powerful than we need.</p>
+
+</div>
+
+---
+
+
+# Q & A
+
+![](https://cdn.shopify.com/s/files/1/0051/4802/products/mona-1_large.jpg?v=1511308586)
+
+
+
+</textarea>
+  <script src="https://remarkjs.com/downloads/remark-latest.min.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+    var slideshow = remark.create();
+  </script>
+</body>
+
+</html>
